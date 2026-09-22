@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: yt-downloader-bot
+    env: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false          # you paste this in the Render dashboard
+      - key: DOWNLOADER_TOKEN
+        generateValue: true  # Render generates a secure random token automatically
+      - key: TELEGRAM_WEBHOOK_SECRET
+        generateValue: true  # separate random secret for the webhook URL path
+      - key: MAX_VIDEO_HEIGHT
+        value: "1080"         # cap on downloaded video resolution
+      - key: FILE_TTL_MINUTES
+        value: "60"           # how long a download link stays valid
+      - key: CLEANUP_INTERVAL_MINUTES
+        value: "5"            # how often expired files are swept from disk
